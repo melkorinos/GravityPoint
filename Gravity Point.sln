@@ -1,0 +1,23 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{3F42DB09-7F6D-AF82-EC46-16744AE290C1}") = "Gravity Point", "Assembly-CSharp.csproj", "{04ED04EE-01EE-F5D7-0630-6795702DB733}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{04ED04EE-01EE-F5D7-0630-6795702DB733}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04ED04EE-01EE-F5D7-0630-6795702DB733}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04ED04EE-01EE-F5D7-0630-6795702DB733}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04ED04EE-01EE-F5D7-0630-6795702DB733}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
