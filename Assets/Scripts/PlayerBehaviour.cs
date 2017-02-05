@@ -9,12 +9,6 @@ public class PlayerBehaviour : MonoBehaviour {
 
 	void Update (){
 
-		// TODO : put this somewhere else
-		if (Input.GetKeyDown("escape"))
-		{
-			SceneManager.LoadScene("Main Menu");
-		}
-
 		//align look direction to velocity
 		rb = GetComponent<Rigidbody2D> ();
 		transform.right = rb.velocity;
@@ -23,7 +17,6 @@ public class PlayerBehaviour : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D other) {
 		//on collission with wall, die
 		if (other.tag == "Wall" || other.tag == "Obstacle") {
-			GameManager.Instance.IsDead = true;
 			GameManager.Instance.OnGameOver ();
 			Destroy (this.gameObject);
 		}

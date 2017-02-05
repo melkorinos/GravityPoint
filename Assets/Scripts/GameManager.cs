@@ -28,22 +28,51 @@ public class GameManager : MonoBehaviour {
 	//***************************** END OF SINGLETON LOGIC   **********************
 
 	public float respawnTime =1;
-	public bool IsDead = false;
+	[HideInInspector]
+	public bool IsPlayerDead = false;
+	public bool IsGamePaused = false;
 
-	//float levelTime;
+	public GameObject pauseUI;
+	float levelTime;
 
+	void Update (){
+		if (Input.GetKeyDown("escape"))
+		{
+			if (!IsGamePaused) {
+				PauseGame ();
+			} else {
+				ResumeGame ();
+			}
+		}
+	}
+		
 	public void OnGameOver (){
+		IsPlayerDead = true;
 		StartCoroutine (RespawnPlayer (respawnTime));
 	}
 
 	public void LevelComplete(){
-		//levelTime = Time.timeSinceLevelLoad;
+		levelTime = Time.timeSinceLevelLoad;
 		SceneManager.LoadScene ("Main Menu");
+	}
+
+	public void PauseGame(){
+		Time.timeScale = 0;
+		IsGamePaused = true;
+		SpawnManager.Instance.enabled = false;
+		pauseUI.SetActive (true);
+	}
+
+	public void ResumeGame(){
+		Time.timeScale = 1;
+		IsGamePaused = false;
+		SpawnManager.Instance.enabled = true;
+		pauseUI.SetActive (false);
 	}
 		
 	IEnumerator RespawnPlayer (float respawnTime){
 		yield return new WaitForSeconds (respawnTime);
 		SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex);
-		IsDead = false;
+		IsPlayerDead = false;
 	}
 }

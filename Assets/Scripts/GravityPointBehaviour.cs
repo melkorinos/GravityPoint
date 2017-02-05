@@ -6,7 +6,7 @@ public class GravityPointBehaviour : MonoBehaviour {
 
 	public float gravityForce;
 	public float minAttractDistance;
-
+	[HideInInspector]
 	public bool clicked;
 
 	GameObject player;
@@ -16,10 +16,9 @@ public class GravityPointBehaviour : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
 		clicked = false;
 
-		if (!GameManager.Instance.IsDead) {
+		if (!GameManager.Instance.IsPlayerDead) {
 			player = GameObject.FindGameObjectWithTag ("Player");
 			playerRb = player.GetComponent<Rigidbody2D> ();
 		}
@@ -27,17 +26,20 @@ public class GravityPointBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (player != null) {
+		if (!GameManager.Instance.IsPlayerDead && !GameManager.Instance.IsGamePaused) {
 			distanceFromPlayer = (transform.position - player.transform.position).magnitude;
 			//minimum attract distance
 			if (distanceFromPlayer < minAttractDistance) {
-				AttractPlayer ();
+				AttractPlayer (distanceFromPlayer);
 			}
 		}
 	}
 
-	void AttractPlayer(){
+	void AttractPlayer(float distance){
+		distance /= 4;
+		if (distance <= 1)
+			distance = 1;
 		Vector2 direction = (transform.position - player.transform.position).normalized;
-		playerRb.AddForce (gravityForce * direction);
+		playerRb.AddForce (gravityForce * direction/distance);
 	}
 }

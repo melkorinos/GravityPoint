@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{04ED04EE-01EE-F5D7-0630-6795702DB733}</ProjectGuid>
+    <ProjectGuid>{87308488-0368-A86A-B93B-23DF798570BA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -50,12 +50,12 @@
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\GravityPointBehaviour.cs" />
      <Compile Include="Assets\Scripts\LevelTimes.cs" />
-     <Compile Include="Assets\Scripts\Menu scripts\_LoadLevel.cs" />
+     <Compile Include="Assets\Scripts\Menu scripts\_ButtonFunctions.cs" />
+     <Compile Include="Assets\Scripts\Menu scripts\_MenuCommands.cs" />
      <Compile Include="Assets\Scripts\NinjaStar.cs" />
      <Compile Include="Assets\Scripts\PlayerBehaviour.cs" />
      <Compile Include="Assets\Scripts\SpawnManager.cs" />
      <Compile Include="Assets\Scripts\SwordEdge.cs" />
-     <Compile Include="Assets\test.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/SW/unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
