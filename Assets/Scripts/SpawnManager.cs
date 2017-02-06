@@ -35,6 +35,8 @@ public class SpawnManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		if (GameManager.Instance.IsGamePaused == true || GameManager.Instance.IsPlayerDead == true)
+			return;
 		// ***********************------------------PC CONTROLS--------------*****************************
 
 		#if UNITY_STANDALONE || UNITY_WEBPLAYER || UNITY_EDITOR

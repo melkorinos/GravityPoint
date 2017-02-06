@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -23,51 +24,55 @@ public class GameManager : MonoBehaviour {
 
 	void Awake(){
 		_instance = this;
+		SceneManager.sceneLoaded += LevelStart;
 	}
 
 	//***************************** END OF SINGLETON LOGIC   **********************
 
 	public float respawnTime =1;
 	[HideInInspector]
-	public bool IsPlayerDead = false;
+	public bool IsPlayerDead = true;
+	[HideInInspector]
 	public bool IsGamePaused = false;
 
-	public GameObject pauseUI;
-	float levelTime;
+
+	Text leveltime;
 
 	void Update (){
+		if (!IsPlayerDead)
+			DisplayGameTime ();
+		
 		if (Input.GetKeyDown("escape"))
 		{
-			if (!IsGamePaused) {
-				PauseGame ();
-			} else {
-				ResumeGame ();
-			}
+			SceneManager.LoadScene ("Main Menu");
 		}
 	}
 		
+	 void LevelStart(Scene scene, LoadSceneMode mode){
+		Time.timeScale = 1;
+		//LevelCompletedUI.SetActive (false);
+		if ((SceneManager.GetActiveScene().name != "Main Menu") && (SceneManager.GetActiveScene().name !="Levels")){
+			IsPlayerDead = false;
+		} 
+	}
+
+	public void LevelComplete(){
+		/*Time.timeScale = 0;
+		IsGamePaused = true;
+		LevelCompletedUI.SetActive (true);
+		Text finalGametime = GameObject.Find ("Final Level Time").GetComponent<Text>();
+		finalGametime.text = Time.timeSinceLevelLoad.ToString ("0.00");*/
+	}
+
 	public void OnGameOver (){
 		IsPlayerDead = true;
 		StartCoroutine (RespawnPlayer (respawnTime));
 	}
 
-	public void LevelComplete(){
-		levelTime = Time.timeSinceLevelLoad;
-		SceneManager.LoadScene ("Main Menu");
-	}
-
-	public void PauseGame(){
-		Time.timeScale = 0;
-		IsGamePaused = true;
-		SpawnManager.Instance.enabled = false;
-		pauseUI.SetActive (true);
-	}
-
-	public void ResumeGame(){
-		Time.timeScale = 1;
-		IsGamePaused = false;
-		SpawnManager.Instance.enabled = true;
-		pauseUI.SetActive (false);
+	public void DisplayGameTime(){
+		if (leveltime == null) 
+			leveltime = GameObject.Find ("Level Time").GetComponent<Text> ();
+		leveltime.text = Time.timeSinceLevelLoad.ToString ("0.00");
 	}
 		
 	IEnumerator RespawnPlayer (float respawnTime){

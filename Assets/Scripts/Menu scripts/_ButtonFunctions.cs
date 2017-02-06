@@ -8,16 +8,18 @@ public class _ButtonFunctions : MonoBehaviour {
 	public string levelName;
 
 	public void LoadMenuScene (){
+		GameManager.Instance.IsPlayerDead = true;
 		SceneManager.LoadScene (levelName);
 	}
 
 	public void LoadGameLevel () { 
 		SceneManager.LoadScene (levelName);
-		//TODO start level manager call
 		//GameManager.Instance.LevelStart ();
 	}
 
-	public void ResumeGame () {
-		GameManager.Instance.ResumeGame ();
+	public void NextLevel (){
+		int thisLevelIndex = SceneManager.GetActiveScene ().buildIndex;
+		SceneManager.LoadScene (thisLevelIndex + 1);
+		//GameManager.Instance.LevelStart ();
 	}
 }

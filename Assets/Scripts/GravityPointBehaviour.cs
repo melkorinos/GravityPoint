@@ -26,13 +26,11 @@ public class GravityPointBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (!GameManager.Instance.IsPlayerDead && !GameManager.Instance.IsGamePaused) {
 			distanceFromPlayer = (transform.position - player.transform.position).magnitude;
 			//minimum attract distance
 			if (distanceFromPlayer < minAttractDistance) {
 				AttractPlayer (distanceFromPlayer);
 			}
-		}
 	}
 
 	void AttractPlayer(float distance){

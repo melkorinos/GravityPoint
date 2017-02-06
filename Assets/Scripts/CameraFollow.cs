@@ -13,7 +13,9 @@ public class CameraFollow : MonoBehaviour {
 
 		if (!GameManager.Instance.IsPlayerDead && player!=null) {
 			Vector3 nextPos = new Vector3 (player.transform.position.x, player.transform.position.y, transform.position.z);
-			transform.position = Vector3.Lerp (transform.position, nextPos, Time.deltaTime * cameraSmoothing);
+			transform.position =  Vector3.Lerp (transform.position, nextPos, Time.deltaTime * cameraSmoothing);
 		} 
+
+
 	}
 }
