@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -35,44 +34,49 @@ public class GameManager : MonoBehaviour {
 	[HideInInspector]
 	public bool IsGamePaused = false;
 
-
-	Text leveltime;
+	UIManager uiManager;
 
 	void Update (){
-		if (!IsPlayerDead)
-			DisplayGameTime ();
-		
+		//pause and unpause
 		if (Input.GetKeyDown("escape"))
 		{
-			SceneManager.LoadScene ("Main Menu");
+			if (IsGamePaused)
+				ResumeLevel ();
+			else
+				PauseLevel ();
 		}
 	}
 		
 	 void LevelStart(Scene scene, LoadSceneMode mode){
 		Time.timeScale = 1;
-		//LevelCompletedUI.SetActive (false);
 		if ((SceneManager.GetActiveScene().name != "Main Menu") && (SceneManager.GetActiveScene().name !="Levels")){
 			IsPlayerDead = false;
+			uiManager = GameObject.FindGameObjectWithTag ("Canvas").GetComponent<UIManager> ();
+			uiManager.levelCompleteMenuUI.SetActive (false);
 		} 
 	}
 
-	public void LevelComplete(){
-		/*Time.timeScale = 0;
+	public void ResumeLevel(){
+		Time.timeScale = 1;
+		IsGamePaused = false;
+		uiManager.ResumeGame ();
+	}
+
+	public void PauseLevel(){
 		IsGamePaused = true;
-		LevelCompletedUI.SetActive (true);
-		Text finalGametime = GameObject.Find ("Final Level Time").GetComponent<Text>();
-		finalGametime.text = Time.timeSinceLevelLoad.ToString ("0.00");*/
+		Time.timeScale =0;
+		uiManager.PauseGame ();
+	}
+
+	public void LevelComplete(){
+		Time.timeScale = 0;
+		IsGamePaused = true;
+		uiManager.LevelComplete ();
 	}
 
 	public void OnGameOver (){
 		IsPlayerDead = true;
 		StartCoroutine (RespawnPlayer (respawnTime));
-	}
-
-	public void DisplayGameTime(){
-		if (leveltime == null) 
-			leveltime = GameObject.Find ("Level Time").GetComponent<Text> ();
-		leveltime.text = Time.timeSinceLevelLoad.ToString ("0.00");
 	}
 		
 	IEnumerator RespawnPlayer (float respawnTime){

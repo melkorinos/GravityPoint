@@ -14,12 +14,14 @@ public class _ButtonFunctions : MonoBehaviour {
 
 	public void LoadGameLevel () { 
 		SceneManager.LoadScene (levelName);
-		//GameManager.Instance.LevelStart ();
 	}
 
 	public void NextLevel (){
 		int thisLevelIndex = SceneManager.GetActiveScene ().buildIndex;
 		SceneManager.LoadScene (thisLevelIndex + 1);
-		//GameManager.Instance.LevelStart ();
 	}
+
+	public void ResumeLevel(){
+		GameManager.Instance.ResumeLevel ();
+	}	
 }

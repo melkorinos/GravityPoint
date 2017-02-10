@@ -16,8 +16,6 @@ public class GravityPointBehaviour : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		clicked = false;
-
 		if (!GameManager.Instance.IsPlayerDead) {
 			player = GameObject.FindGameObjectWithTag ("Player");
 			playerRb = player.GetComponent<Rigidbody2D> ();
@@ -26,6 +24,9 @@ public class GravityPointBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		// if game is active do things
+		if (GameManager.Instance.IsGamePaused == true || GameManager.Instance.IsPlayerDead == true)
+			return; 
 			distanceFromPlayer = (transform.position - player.transform.position).magnitude;
 			//minimum attract distance
 			if (distanceFromPlayer < minAttractDistance) {

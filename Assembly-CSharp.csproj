@@ -47,14 +47,15 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
-     <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\GravityPointBehaviour.cs" />
      <Compile Include="Assets\Scripts\LevelTimes.cs" />
+     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\SpawnManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
      <Compile Include="Assets\Scripts\Menu scripts\_ButtonFunctions.cs" />
      <Compile Include="Assets\Scripts\Menu scripts\_MenuCommands.cs" />
      <Compile Include="Assets\Scripts\NinjaStar.cs" />
      <Compile Include="Assets\Scripts\PlayerBehaviour.cs" />
-     <Compile Include="Assets\Scripts\SpawnManager.cs" />
      <Compile Include="Assets\Scripts\SwordEdge.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/SW/unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

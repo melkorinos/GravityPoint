@@ -8,7 +8,6 @@ public class PlayerBehaviour : MonoBehaviour {
 	Rigidbody2D rb;
 
 	void Update (){
-
 		//align look direction to velocity
 		rb = GetComponent<Rigidbody2D> ();
 		transform.right = rb.velocity;
