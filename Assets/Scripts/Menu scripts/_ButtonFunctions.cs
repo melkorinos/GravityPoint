@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class _ButtonFunctions : MonoBehaviour {
 
@@ -24,4 +25,9 @@ public class _ButtonFunctions : MonoBehaviour {
 	public void ResumeLevel(){
 		GameManager.Instance.ResumeLevel ();
 	}	
+
+	public void Retry (){
+		GameManager.Instance.OnGameOver ();
+	}
+		
 }

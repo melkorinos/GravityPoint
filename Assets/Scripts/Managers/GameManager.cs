@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour {
 	void Awake(){
 		_instance = this;
 		SceneManager.sceneLoaded += LevelStart;
+		//PlayerPrefs.SetInt ("Game Mode", 0);
 	}
 
 	//***************************** END OF SINGLETON LOGIC   **********************
@@ -33,8 +34,11 @@ public class GameManager : MonoBehaviour {
 	public bool IsPlayerDead = true;
 	[HideInInspector]
 	public bool IsGamePaused = false;
+	[HideInInspector]
+	public bool IsNormalGameMode = true;
 
 	UIManager uiManager;
+	Vector4 leveltimes;
 
 	void Update (){
 		//pause and unpause
@@ -51,8 +55,17 @@ public class GameManager : MonoBehaviour {
 		Time.timeScale = 1;
 		if ((SceneManager.GetActiveScene().name != "Main Menu") && (SceneManager.GetActiveScene().name !="Levels")){
 			IsPlayerDead = false;
+			IsNormalGameMode = true;
 			uiManager = GameObject.FindGameObjectWithTag ("Canvas").GetComponent<UIManager> ();
 			uiManager.levelCompleteMenuUI.SetActive (false);
+			uiManager.pointsRemainingUI.SetActive (false);
+
+			if ((PlayerPrefs.GetInt("Game Mode") == 1)) {
+				IsNormalGameMode = false;
+				leveltimes = LevelTimes.getLevelTimes (SceneManager.GetActiveScene ().name);
+				SpawnManager.Instance.gravityPointsRemaining = Mathf.RoundToInt (leveltimes.w);
+				uiManager.AlternativeUI ();
+			}
 		} 
 	}
 
@@ -75,6 +88,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void OnGameOver (){
+		Time.timeScale = 1;
 		IsPlayerDead = true;
 		StartCoroutine (RespawnPlayer (respawnTime));
 	}

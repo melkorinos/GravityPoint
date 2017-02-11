@@ -27,6 +27,8 @@ public class SpawnManager : MonoBehaviour {
 	//***************************** END OF SINGLETON LOGIC   **********************
 
 	public GameObject gravityPoint;
+	[HideInInspector]
+	public int gravityPointsRemaining;
 
 	GameObject spawnedGravityPoint;
 	float clickTime;
@@ -77,7 +79,7 @@ public class SpawnManager : MonoBehaviour {
 					}
 				}
 				else {
-						CreateNewGravityPointMobile ();
+						CreateNewGravityPoint ();
 				}
 			}
 		}
@@ -90,18 +92,30 @@ public class SpawnManager : MonoBehaviour {
 	}
 
 	void CreateNewGravityPoint (){
+
+		if ((!GameManager.Instance.IsNormalGameMode) && (gravityPointsRemaining <= 0))
+			return;
+
 		clickTime = Time.time;
+		#if UNITY_STANDALONE || UNITY_WEBPLAYER || UNITY_EDITOR
 		Vector2 mousePos = Input.mousePosition;
+		#elif UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
+		Vector2 mousePos = Input.GetTouch(0).position;
+		#endif
 		Vector2 spawnLocation = Camera.main.ScreenToWorldPoint (mousePos);
 		spawnedGravityPoint =  Instantiate (gravityPoint, spawnLocation, Quaternion.identity) as GameObject;
+
+		if (!GameManager.Instance.IsNormalGameMode) {
+			gravityPointsRemaining--;
+		}
 	}
 
-	void CreateNewGravityPointMobile (){
+	/*void CreateNewGravityPointMobile (){
 		clickTime = Time.time;
 		Vector2 mousePos = Input.GetTouch(0).position;
 		Vector2 spawnLocation = Camera.main.ScreenToWorldPoint (mousePos);
 		spawnedGravityPoint =  Instantiate (gravityPoint, spawnLocation, Quaternion.identity) as GameObject;
-	}
+	}*/
 
 	bool IsClicked(){
 		bool clicked = false;

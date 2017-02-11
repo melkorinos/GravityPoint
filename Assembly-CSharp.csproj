@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
      <Compile Include="Assets\Scripts\Menu scripts\_ButtonFunctions.cs" />
      <Compile Include="Assets\Scripts\Menu scripts\_MenuCommands.cs" />
+     <Compile Include="Assets\Scripts\Menu scripts\_ToggleGameModeButton.cs" />
      <Compile Include="Assets\Scripts\NinjaStar.cs" />
      <Compile Include="Assets\Scripts\PlayerBehaviour.cs" />
      <Compile Include="Assets\Scripts\SwordEdge.cs" />
