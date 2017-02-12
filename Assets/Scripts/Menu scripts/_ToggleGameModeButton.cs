@@ -10,19 +10,14 @@ public class _ToggleGameModeButton : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		buttonText = GetComponentInChildren<Text> ();
-
 		if ((PlayerPrefs.GetInt ("Game Mode") == 0)) {
 			buttonText.text = "Normal Mode";
 		} else {
 			buttonText.text = "??? Mode";
 		}
-
-		Debug.Log (PlayerPrefs.GetInt ("Game Mode"));
 	}
 
 	public void ToggleGameMode (){
-		
-
 		if ((PlayerPrefs.GetInt ("Game Mode") == 0)) {
 			PlayerPrefs.SetInt ("Game Mode",1);
 			buttonText.text = "Spawn Mode";
@@ -30,7 +25,5 @@ public class _ToggleGameModeButton : MonoBehaviour {
 			PlayerPrefs.SetInt ("Game Mode", 0);
 			buttonText.text = "Normal Mode";
 		}
-
-		Debug.Log (PlayerPrefs.GetInt ("Game Mode"));
 	}
 }

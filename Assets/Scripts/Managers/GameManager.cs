@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour {
 	void Awake(){
 		_instance = this;
 		SceneManager.sceneLoaded += LevelStart;
-		//PlayerPrefs.SetInt ("Game Mode", 0);
 	}
 
 	//***************************** END OF SINGLETON LOGIC   **********************
@@ -42,7 +41,7 @@ public class GameManager : MonoBehaviour {
 
 	void Update (){
 		//pause and unpause
-		if (Input.GetKeyDown("escape"))
+		if (Input.GetKeyDown("escape") && !IsPlayerDead)
 		{
 			if (IsGamePaused)
 				ResumeLevel ();
@@ -56,10 +55,10 @@ public class GameManager : MonoBehaviour {
 		if ((SceneManager.GetActiveScene().name != "Main Menu") && (SceneManager.GetActiveScene().name !="Levels")){
 			IsPlayerDead = false;
 			IsNormalGameMode = true;
+			SpawnManager.Instance.firstClickTime = 0;
 			uiManager = GameObject.FindGameObjectWithTag ("Canvas").GetComponent<UIManager> ();
-			uiManager.levelCompleteMenuUI.SetActive (false);
-			uiManager.pointsRemainingUI.SetActive (false);
 
+			// alternative mode stuff
 			if ((PlayerPrefs.GetInt("Game Mode") == 1)) {
 				IsNormalGameMode = false;
 				leveltimes = LevelTimes.getLevelTimes (SceneManager.GetActiveScene ().name);

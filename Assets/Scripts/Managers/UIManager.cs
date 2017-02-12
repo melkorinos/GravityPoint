@@ -22,10 +22,12 @@ public class UIManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		// init stuff
 		levelTime = levelTimeUI.GetComponentInChildren<Text> ();
 		pauseMenuUI.SetActive (false);
 		levelCompleteMenuUI.SetActive (false);
 
+		//get all level info
 		leveltimes = LevelTimes.getLevelTimes(SceneManager.GetActiveScene().name);
 		goldTime.text = leveltimes.x.ToString("0.00");
 		silverTime.text = leveltimes.y.ToString("0.00");
@@ -37,7 +39,7 @@ public class UIManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (!GameManager.Instance.IsPlayerDead) {
-			if (GameManager.Instance.IsNormalGameMode) {
+			if (GameManager.Instance.IsNormalGameMode && (SpawnManager.Instance.firstClickTime != 0)) {
 				DisplayGameTime ();
 			} else {
 				DisplayRemainingShots ();
@@ -60,19 +62,21 @@ public class UIManager : MonoBehaviour {
 	}
 
 	public void DisplayGameTime(){ 
-		levelTime.text = Time.timeSinceLevelLoad.ToString ("0.00");
+		float t = Time.timeSinceLevelLoad - SpawnManager.Instance.firstClickTime;
+		levelTime.text = t.ToString ("0.00");
 	}
 
 	public void DisplayRemainingShots(){
 		pointsRemaining.text = "Holes Left : " + SpawnManager.Instance.gravityPointsRemaining.ToString ();
 	}
 
+	//display end of level messages
 	public void LevelComplete (){
 		levelCompleteMenuUI.SetActive (true);
 		if (GameManager.Instance.IsNormalGameMode) {
 			
-
-			finalGameTime.text = Time.timeSinceLevelLoad.ToString ("0.00");
+			float t = Time.timeSinceLevelLoad - SpawnManager.Instance.firstClickTime;
+			finalGameTime.text = t.ToString ("0.00");
 
 			//gold
 			if (Time.timeSinceLevelLoad <= leveltimes.x)

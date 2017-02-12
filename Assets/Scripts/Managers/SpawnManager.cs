@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpawnManager : MonoBehaviour {
 
@@ -29,6 +30,8 @@ public class SpawnManager : MonoBehaviour {
 	public GameObject gravityPoint;
 	[HideInInspector]
 	public int gravityPointsRemaining;
+	[HideInInspector]
+	public float firstClickTime;
 
 	GameObject spawnedGravityPoint;
 	float clickTime;
@@ -92,7 +95,7 @@ public class SpawnManager : MonoBehaviour {
 	}
 
 	void CreateNewGravityPoint (){
-
+		//if  no more points left to spawn
 		if ((!GameManager.Instance.IsNormalGameMode) && (gravityPointsRemaining <= 0))
 			return;
 
@@ -105,17 +108,14 @@ public class SpawnManager : MonoBehaviour {
 		Vector2 spawnLocation = Camera.main.ScreenToWorldPoint (mousePos);
 		spawnedGravityPoint =  Instantiate (gravityPoint, spawnLocation, Quaternion.identity) as GameObject;
 
-		if (!GameManager.Instance.IsNormalGameMode) {
+		// one less point to spawn
+		if (!GameManager.Instance.IsNormalGameMode) 
 			gravityPointsRemaining--;
-		}
+		// first gravity point for timer
+		if (firstClickTime ==0)
+			firstClickTime = Time.timeSinceLevelLoad;
+		
 	}
-
-	/*void CreateNewGravityPointMobile (){
-		clickTime = Time.time;
-		Vector2 mousePos = Input.GetTouch(0).position;
-		Vector2 spawnLocation = Camera.main.ScreenToWorldPoint (mousePos);
-		spawnedGravityPoint =  Instantiate (gravityPoint, spawnLocation, Quaternion.identity) as GameObject;
-	}*/
 
 	bool IsClicked(){
 		bool clicked = false;
