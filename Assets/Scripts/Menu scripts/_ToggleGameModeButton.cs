@@ -20,7 +20,7 @@ public class _ToggleGameModeButton : MonoBehaviour {
 	public void ToggleGameMode (){
 		if ((PlayerPrefs.GetInt ("Game Mode") == 0)) {
 			PlayerPrefs.SetInt ("Game Mode",1);
-			buttonText.text = "Spawn Mode";
+			buttonText.text = "??? Mode";
 		} else {
 			PlayerPrefs.SetInt ("Game Mode", 0);
 			buttonText.text = "Normal Mode";

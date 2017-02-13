@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour {
 	public GameObject levelCompleteMenuUI;
 	public GameObject medalsUI;
 	public GameObject pointsRemainingUI;
+	public Text levelCompleteText;
 	public Text finalGameTime;
 	public Text goldTime;
 	public Text silverTime;
@@ -19,6 +20,12 @@ public class UIManager : MonoBehaviour {
 
 	Text levelTime;
 	Vector4 leveltimes;
+
+	void Awake(){
+		//disable UI on test level
+		if (SceneManager.GetActiveScene ().name [0].ToString () == "_")
+			this.gameObject.SetActive (false);
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -74,33 +81,42 @@ public class UIManager : MonoBehaviour {
 	public void LevelComplete (){
 		levelCompleteMenuUI.SetActive (true);
 		if (GameManager.Instance.IsNormalGameMode) {
-			
+
 			float t = Time.timeSinceLevelLoad - SpawnManager.Instance.firstClickTime;
 			finalGameTime.text = t.ToString ("0.00");
 
 			//gold
-			if (Time.timeSinceLevelLoad <= leveltimes.x)
+			if (Time.timeSinceLevelLoad <= leveltimes.x) {
+				levelCompleteText.color = new Vector4 (255, 215, 0, 1);
 				finalGameTime.color = new Vector4 (255, 215, 0, 1);
+			}
 			//silver
-			if (Time.timeSinceLevelLoad <= leveltimes.y)
+			if (Time.timeSinceLevelLoad <= leveltimes.y) {
+				levelCompleteText.color = new Vector4 (192, 192, 192, 1);
 				finalGameTime.color = new Vector4 (192, 192, 192, 0.85f);
+			}
 			//bronze
-			if (Time.timeSinceLevelLoad <= leveltimes.z)
+			if (Time.timeSinceLevelLoad <= leveltimes.z) {
 				finalGameTime.color = new Vector4 (170, 83, 54, 0.7f);
+				levelCompleteText.color = new Vector4 (170, 83, 54, 1);
+			}
 		} else {
 			
 			//bronze
 			if (SpawnManager.Instance.gravityPointsRemaining >= 0) {
+				levelCompleteText.color = new Vector4 (170, 83, 54, 1);
 				finalGameTime.color = new Vector4 (170, 83, 54, 0.7f);
 				finalGameTime.text = "BRONZE";
 			}
 			//silver
 			if (SpawnManager.Instance.gravityPointsRemaining >= 2) {
+				levelCompleteText.color = new Vector4 (192, 192, 192, 1);
 				finalGameTime.color = new Vector4 (192, 192, 192, 0.85f);
 				finalGameTime.text = "SILVER";
 			}
 			//gold
 			if (SpawnManager.Instance.gravityPointsRemaining >= 4) {
+				levelCompleteText.color = new Vector4 (255, 215, 0, 1);
 				finalGameTime.color = new Vector4 (255, 215, 0, 1);
 				finalGameTime.text = "GOLD";
 			}

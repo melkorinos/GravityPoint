@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour {
 
 	void Awake(){
 		_instance = this;
+
+		//Subscribe to scene loaded event
 		SceneManager.sceneLoaded += LevelStart;
 	}
 
@@ -41,18 +43,17 @@ public class GameManager : MonoBehaviour {
 
 	void Update (){
 		//pause and unpause
-		if (Input.GetKeyDown("escape") && !IsPlayerDead)
-		{
+		if (Input.GetKeyDown ("escape") && !IsPlayerDead) {
 			if (IsGamePaused)
 				ResumeLevel ();
-			else
+			else 
 				PauseLevel ();
 		}
 	}
 		
 	 void LevelStart(Scene scene, LoadSceneMode mode){
 		Time.timeScale = 1;
-		if ((SceneManager.GetActiveScene().name != "Main Menu") && (SceneManager.GetActiveScene().name !="Levels")){
+		if ((SceneManager.GetActiveScene().name [0].ToString () != "_")){
 			IsPlayerDead = false;
 			IsNormalGameMode = true;
 			SpawnManager.Instance.firstClickTime = 0;
